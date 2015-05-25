@@ -1,0 +1,24 @@
+#### configuration configuration configuration
+file path: conf/storm.yaml
+storm.zookeeper.servers:
+storm.local.dir: "/home/admin/storm/workdir"
+nimbus.host: "111.222.333.444"
+supervisor.slots.ports:
+    - 6700
+    - 6701
+    - 6702
+    - 6703
+
+#### Storm server/worker start
+
+Nimbus: 在Storm主控节点上运行"bin/storm nimbus >/dev/null 2>&1 &"启动Nimbus后台程序，并放到后台执行；
+Supervisor: 在Storm各个工作节点上运行"bin/storm supervisor >/dev/null 2>&1 &"启动Supervisor后台程序，并放到后台执行；
+UI: 在Storm主控节点上运行"bin/storm ui >/dev/null 2>&1 &"启动UI后台程序，并放到后台执行，
+
+http://{nimbus host}:8080 for monitor topology running status.
+
+
+#### submit/kill topology
+storm jar allmycode.jar org.me.MyTopology arg1 arg2 arg3
+storm kill topology_name
+

@@ -1,7 +1,9 @@
+package MyTopology
+
 import MyBolt.SplitSentence
-import MySpout.{ScalaRandomSpout, RandomSentenceSpout}
-import backtype.storm.{LocalCluster, Config}
+import MySpout.ScalaRandomSpout
 import backtype.storm.topology.TopologyBuilder
+import backtype.storm.{Config, LocalCluster}
 
 /**
  * Created by juzhou on 5/21/2015.

@@ -1,0 +1,26 @@
+#### component
+Nimbus job tracker or master. Nimbus is Thrift service.
+topologies is graph computing like job in spark
+worker supervisor deamon
+
+Stream unbound sequences of tuples
+spouts source of stream. both reliable and unreliable source. spout can emit more than a stream.
+bolts consumer of stream
+
+task is one execution thread.
+
+#### Grouping
+how stream is partitioned among bolt's tasks.
+1. shuffle grouping: random partition
+2. Fields grouping: partition accroding to one field. then each bolt deal with tuple of same field value
+3. partial key grouping: field grouping and load balance
+4. all grouping: replicated to all bolts
+5. global grouping: stream go to single bolt
+6 none grouping: currently equal to shuffle one.
+7 direct grouping: producer decide which bolt deal with stream
+8 local or grouping: if bolt has more tasks in same worker process, tuple just shuffle in-process tasks.
+
+
+
+#### Trident
+
