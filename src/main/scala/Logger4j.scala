@@ -5,6 +5,6 @@ import clojure.tools.logging.impl.LoggerFactory
  */
 object Logger4j {
   def main (args: Array[String]) {
-    val log = LoggerFactory
+    // val log = LoggerFactory
   }
 }

@@ -1,8 +1,8 @@
 package MyBolt
 
 import backtype.storm.task.{OutputCollector, TopologyContext}
-import backtype.storm.topology.IRichBolt
-import backtype.storm.tuple.Tuple
+import backtype.storm.topology.{OutputFieldsDeclarer, IRichBolt}
+import backtype.storm.tuple.{Fields, Tuple}
 
 /**
  * Created by juzhou on 5/22/2015.
@@ -24,5 +24,16 @@ class ScalaNewFieldBolt extends IRichBolt {
 
   override def prepare(stormConf: java.util.Map[_, _], context: TopologyContext, collector: OutputCollector) {}
 
+  def  declareOutputFields (declarer: OutputFieldsDeclarer): Unit = {
+    val streamId = "streamOne"
+    val fields = new Fields("word")
+
+    declarer.declare(fields) // just declare new field
+    declarer.declareStream(streamId, fields) // declare both stream and field.
+  }
+
+  def getComponentConfiguration: java.util.Map[String, Object] = {
+    null
+  }
 
 }

@@ -11,6 +11,7 @@ import backtype.storm.{Config, LocalCluster}
 object CreateTop {
   def main (args: Array[String]) {
     val tb = new TopologyBuilder
+    // tb.setSpout(new ScalaRandomSpout, 1)
     tb.setSpout("spout", new ScalaRandomSpout, 1)
     tb.setBolt("split", new SplitSentence, 1).shuffleGrouping("spout")
 
@@ -23,6 +24,6 @@ object CreateTop {
 
     Thread.sleep(10000)
 
-    cluster.shutdown
+    cluster.shutdown()
   }
 }

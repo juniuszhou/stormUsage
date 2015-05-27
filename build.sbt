@@ -10,3 +10,5 @@ resolvers ++= Seq(
 )
 
 libraryDependencies += "org.apache.storm" % "storm-core" % "0.9.4"
+
+libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.12"

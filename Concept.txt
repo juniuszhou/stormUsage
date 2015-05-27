@@ -1,3 +1,5 @@
+storm designed by twitter then become apache open source.
+
 #### component
 Nimbus job tracker or master. Nimbus is Thrift service.
 topologies is graph computing like job in spark
@@ -12,7 +14,7 @@ task is one execution thread.
 #### Grouping
 how stream is partitioned among bolt's tasks.
 1. shuffle grouping: random partition
-2. Fields grouping: partition accroding to one field. then each bolt deal with tuple of same field value
+2. Fields grouping: partition according to one field. then each bolt deal with tuple of same field value
 3. partial key grouping: field grouping and load balance
 4. all grouping: replicated to all bolts
 5. global grouping: stream go to single bolt
@@ -23,4 +25,16 @@ how stream is partitioned among bolt's tasks.
 
 
 #### Trident
+http://blog.chinaunix.net/uid-26253719-id-4063679.html
+
+
+#### DRPC
+distributed remote process call.
+in one topology, you can define DRPC stream. then DRPC can run on the topology.
+unlike spout and bolt, DRPC need be called explicitly.
+so it is very like a remote call, after call, the result will be returned to console.
+maybe
+
+#### Implementation
+the message between spout and bolt is via tcp, ZeroMQ system.
 

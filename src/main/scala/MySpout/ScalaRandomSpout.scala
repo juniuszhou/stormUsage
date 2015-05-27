@@ -18,7 +18,9 @@ class ScalaRandomSpout extends BaseRichSpout {
 
   def nextTuple() {
     Utils.sleep(100)
-    val sentences: Array[String] = Array[String]("the cow jumped over the moon", "an apple a day keeps the doctor away", "four score and seven years ago", "snow white and the seven dwarfs", "i am at two with nature")
+    val sentences: Array[String] = Array[String]("the cow jumped over the moon",
+      "an apple a day keeps the doctor away", "four score and seven years ago",
+      "snow white and the seven dwarfs", "i am at two with nature")
     val sentence: String = sentences(_rand.nextInt(sentences.length))
     _collector.emit(new Values(sentence))
   }
