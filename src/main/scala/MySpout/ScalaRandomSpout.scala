@@ -16,8 +16,10 @@ class ScalaRandomSpout extends BaseRichSpout {
   private[MySpout] var _collector: SpoutOutputCollector = null
   private[MySpout] var _rand: Random = null
 
+  //this variable set as true is critical important otherwise some workers may die.
+  // private[MySpout] var _isDistributed: Boolean = true
+
   def nextTuple() {
-    Utils.sleep(100)
     val sentences: Array[String] = Array[String]("the cow jumped over the moon",
       "an apple a day keeps the doctor away", "four score and seven years ago",
       "snow white and the seven dwarfs", "i am at two with nature")
