@@ -1,6 +1,6 @@
 package MyTopology
 
-import MyBolt.{ScalaNewFieldBolt, ExclamationBolt, SplitSentence}
+import MyBolt.{ScalaNewFieldBolt, ExclamationBolt}
 import MySpout.ScalaRandomSpout
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.{Config, LocalCluster}

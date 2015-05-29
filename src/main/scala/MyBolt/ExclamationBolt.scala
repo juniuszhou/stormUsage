@@ -6,15 +6,14 @@ package MyBolt
 import backtype.storm.topology.base.BaseRichBolt
 import backtype.storm.topology.OutputFieldsDeclarer
 import backtype.storm.tuple.{Values, Fields, Tuple}
-import java.util
 import backtype.storm.task.{OutputCollector, TopologyContext}
-
+import java.util.{Map => JMap}  // good way to use java map in scala.
 
 class ExclamationBolt extends BaseRichBolt {
 
   var collector: OutputCollector = _
 
-  override def prepare(config: util.Map[_, _], context: TopologyContext, collector: OutputCollector): Unit = {
+  override def prepare(config: JMap[_, _], context: TopologyContext, collector: OutputCollector): Unit = {
     this.collector = collector
   }
 

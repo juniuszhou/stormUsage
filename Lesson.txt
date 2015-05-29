@@ -4,3 +4,13 @@ http://www.cnblogs.com/panfeng412/category/367117.html
 
 #### storm-kafka
 https://github.com/nathanmarz/storm-contrib/tree/master/storm-kafka
+
+
+#### good code example for scala storm.
+// https://github.com/velvia/ScalaStorm
+
+
+#### there is an error of compilation
+https://groups.google.com/forum/#!topic/storm-user/HOzYncAlm_A
+
+1. when use scala to call storm or other jvm. maybe we need type conversion.

@@ -25,7 +25,10 @@ how stream is partitioned among bolt's tasks.
 
 
 #### Trident
+state to save data in disc, hdfs or other persistence device.
+
 http://blog.chinaunix.net/uid-26253719-id-4063679.html
+http://blog.csdn.net/derekjiang/article/details/9126185
 
 
 #### DRPC

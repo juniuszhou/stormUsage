@@ -17,7 +17,7 @@ object MyBatchTopology {
       new Values("how many apples can you eat"),
       new Values("to be or not to be the person"))
     val topology = new TridentTopology
-    topology.newStream("spout1", spout).each
+    topology.newStream("spout1", spout)
     val stormTop = topology.build()
 
     val cluster = new LocalCluster()
