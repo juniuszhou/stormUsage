@@ -12,6 +12,4 @@ resolvers ++= Seq(
 )
 
 libraryDependencies += "org.apache.storm" % "storm-core" % "0.9.4"
-
-libraryDependencies += "com.github.velvia" %% "scala-storm" % "0.2.2"
-
+// % "provided"

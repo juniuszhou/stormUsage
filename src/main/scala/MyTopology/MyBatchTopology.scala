@@ -2,7 +2,11 @@ package MyTopology
 
 import backtype.storm.tuple._
 import backtype.storm.{LocalCluster, Config}
+
 import storm.trident.TridentTopology
+import storm.trident.testing.FixedBatchSpout
+import storm.trident.testing.FixedBatchSpout
+import storm.trident.testing.FixedBatchSpout
 import storm.trident.testing.FixedBatchSpout
 
 object MyBatchTopology {

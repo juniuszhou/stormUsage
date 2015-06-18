@@ -1,0 +1,31 @@
+1. when package for submit, you must exclude the storm-core from your
+application jar package. otherwise there is duplicated configuration file error.
+
+<dependencySets>
+    <dependencySet>
+      <outputDirectory>/</outputDirectory>
+      <unpack>true</unpack>
+      <excludes>
+        <exclude>storm:storm</exclude>
+      </excludes>
+    </dependencySet>
+  </dependencySets>
+
+2. pay attention to configure file 's format.
+    yaml file format is very strict.
+
+3. how to install clojure
+sudo apt-get install clojure1.4
+
+4. https://github.com/velvia/ScalaStorm/blob/master/build.sbt
+to see how to define sbt file in storm application.
+
+5. package
+if duplicate binding for slf4j or class problem.
+you should remove storm-core from artifact
+you should remove redundant slf4j log implementation jar from artifact.
+that is to remove backlog jar.
+
+
+
+

@@ -1,4 +1,6 @@
+#### general
 storm designed by twitter then become apache open source.
+implemented by clojure language.
 
 #### component
 Nimbus job tracker or master. Nimbus is Thrift service.
@@ -40,4 +42,22 @@ maybe
 
 #### Implementation
 the message between spout and bolt is via tcp, ZeroMQ system.
+
+
+
+
+
+#### ACK mechanism  http://www.tuicool.com/articles/vErmIb
+message process tree: any message from spout and then all following process can be
+viewed as a process tree.
+In storm, we have ack mechanism to trace if all nodes in the message process tree deal
+with message and tuple successfully.
+
+the implementation details of ack:
+there is an ack bolt to trace each tuple 's tuple tree.
+by xor all tuple id generated and tuple id dealt, then judge if all done (tricky and smart method)
+
+
+
+
 

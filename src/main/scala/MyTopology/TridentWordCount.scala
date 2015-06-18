@@ -9,6 +9,7 @@ import backtype.storm.tuple.Values
 import storm.trident.TridentTopology
 import storm.trident.operation.BaseFunction
 import storm.trident.operation.TridentCollector
+import storm.trident.operation.TridentCollector
 import storm.trident.operation.builtin.Count
 import storm.trident.operation.builtin.FilterNull
 import storm.trident.operation.builtin.MapGet
