@@ -15,7 +15,7 @@ storm.zookeeper.servers:
 #     - "server1"
 #     - "server2"
 #
-nimbus.host: "127.0.0.1:6363"    // must put in ""
+nimbus.host: "127.0.0.1"    // must put in "" and no port number just ip address.
 
 #### Storm server/worker start
 
@@ -39,6 +39,8 @@ storm kill topology_name
 ## successfully to submit.
 storm stormusage.jar MyTopology.ExclamationTopology
 storm stormusage.jar MyTopology/ExclamationTopology  // seems "/" also works.
+
+storm jar com.expedia.www.lpas.trends.LpasTrendsStormTopology
 
 ## kill process directly
 kill `ps aux | egrep '(daemon\.nimbus)|(storm\.ui\.core)' | fgrep -v egrep | awk '{print $2}'`

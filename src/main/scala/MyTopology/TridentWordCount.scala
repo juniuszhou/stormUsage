@@ -9,7 +9,6 @@ import backtype.storm.tuple.Values
 import storm.trident.TridentTopology
 import storm.trident.operation.BaseFunction
 import storm.trident.operation.TridentCollector
-import storm.trident.operation.TridentCollector
 import storm.trident.operation.builtin.Count
 import storm.trident.operation.builtin.FilterNull
 import storm.trident.operation.builtin.MapGet
@@ -55,9 +54,12 @@ object TridentWordCount {
 class TridentWordCount {
 
   def buildTopology(drpc: LocalDRPC): StormTopology = {
-    val spout = new FixedBatchSpout(new Fields("sentence"), 3, new Values("the cow jumped over the moon"),
-      new Values("the man went to the store and bought some candy"), new Values("four score and seven years ago"),
-      new Values("how many apples can you eat"), new Values("to be or not to be the person"))
+    val spout = new FixedBatchSpout(new Fields("sentence"), 3,
+      new Values("the cow jumped over the moon"),
+      new Values("the man went to the store and bought some candy"),
+      new Values("four score and seven years ago"),
+      new Values("how many apples can you eat"),
+      new Values("to be or not to be the person"))
     spout.setCycle(true)
 
     val topology = new TridentTopology()

@@ -5,13 +5,18 @@ implemented by clojure language.
 #### component
 Nimbus job tracker or master. Nimbus is Thrift service.
 topologies is graph computing like job in spark
-worker supervisor deamon
+worker supervisor daemon
 
-Stream unbound sequences of tuples
+Stream unbound sequences of tuple
 spouts source of stream. both reliable and unreliable source. spout can emit more than a stream.
 bolts consumer of stream
 
-task is one execution thread.
+one executor is a thread.
+a task is one execution flow. one executor can run several tasks since 0.8 and
+the new model can decouple thread from task, so new model can scale up/out better.
+
+there are many system thread running at worker, such as emit thread.
+system spout to send tick tuple.
 
 #### Grouping
 how stream is partitioned among bolt's tasks.
@@ -22,29 +27,13 @@ how stream is partitioned among bolt's tasks.
 5. global grouping: stream go to single bolt
 6 none grouping: currently equal to shuffle one.
 7 direct grouping: producer decide which bolt deal with stream
-8 local or grouping: if bolt has more tasks in same worker process, tuple just shuffle in-process tasks.
-
-
-
-#### Trident
-state to save data in disc, hdfs or other persistence device.
-
-http://blog.chinaunix.net/uid-26253719-id-4063679.html
-http://blog.csdn.net/derekjiang/article/details/9126185
-
-
-#### DRPC
-distributed remote process call.
-in one topology, you can define DRPC stream. then DRPC can run on the topology.
-unlike spout and bolt, DRPC need be called explicitly.
-so it is very like a remote call, after call, the result will be returned to console.
-maybe
+8 local or grouping: if bolt has more tasks in same worker process,
+tuple just shuffle in-process tasks.
+如果目标bolt有一个或者多个task与源bolt的task在同一个工作进程中，
+tuple将会被随机发送给这些同进程中的tasks。否则，和普通的Shuffle Grouping行为一致。
 
 #### Implementation
 the message between spout and bolt is via tcp, ZeroMQ system.
-
-
-
 
 
 #### ACK mechanism  http://www.tuicool.com/articles/vErmIb
@@ -60,4 +49,15 @@ by xor all tuple id generated and tuple id dealt, then judge if all done (tricky
 
 
 
-
+#### key parts of storm design
+1. tuple data structure
+2. message via zero MQ
+3. task scheduler nimbus supervisor
+4. ack to guarantee message consumed. ack bolt.
+5. two extension drpc and trident. drpc server
+6. grouping or shuffle.
+7. transaction to guarantee exact once more than at least once.
+8. storm 's HA mechanism and how cooperate with zookeeper.
+9. slide window. we can set TOPOLOGY_TICK_TUPLE_FREQ_SECS.
+then each several seconds, we got a tick tuple message.
+then slide window can be realized.

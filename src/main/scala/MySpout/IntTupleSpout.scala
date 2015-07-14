@@ -7,12 +7,8 @@ import backtype.storm.task.TopologyContext
 import backtype.storm.topology.OutputFieldsDeclarer
 import backtype.storm.topology.base.BaseRichSpout
 import backtype.storm.tuple.{Fields, Values}
-import backtype.storm.utils.Utils
 
-/**
- * Created by juzhou on 5/21/2015.
- */
-class ScalaRandomSpout extends BaseRichSpout {
+class IntTupleSpout extends BaseRichSpout {
   private[MySpout] var _collector: SpoutOutputCollector = null
   private[MySpout] var _rand: Random = null
 
@@ -20,14 +16,11 @@ class ScalaRandomSpout extends BaseRichSpout {
   // private[MySpout] var _isDistributed: Boolean = true
 
   def nextTuple() {
-    val sentences: Array[String] = Array[String]("the cow jumped over the moon",
-      "an apple a day keeps the doctor away", "four score and seven years ago",
-      "snow white and the seven dwarfs", "i am at two with nature")
-    val sentence: String = sentences(_rand.nextInt(sentences.length))
+    val one = _rand.nextInt(4)
+    val two = _rand.nextInt(3)
+    val three = _rand.nextInt(4)
     Thread.sleep(1000)
-    _collector.emit("defaultOne", new Values(sentence))
-    _collector.emit("defaultTwo", new Values(sentence))
-    //_collector.emit(new Values(sentence))
+    _collector.emit(new Values(new Integer(one), new Integer(two), new Integer(three)))
   }
 
   override def ack(id: AnyRef) {
@@ -37,11 +30,15 @@ class ScalaRandomSpout extends BaseRichSpout {
   }
 
   def declareOutputFields(declarer: OutputFieldsDeclarer) {
+    /*
     val streamId1 = "defaultOne"
+
     val streamId2 = "defaultTwo"
     declarer.declareStream(streamId1, new Fields("word"))
     declarer.declareStream(streamId2, new Fields("word"))
-    //declarer.declare(new Fields("word"))
+    */
+
+    declarer.declare(new Fields("a", "b", "c"))
   }
 
   //java.util.Map must be declared otherwaise its default map from scala.

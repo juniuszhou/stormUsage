@@ -13,4 +13,11 @@ https://github.com/nathanmarz/storm-contrib/tree/master/storm-kafka
 #### there is an error of compilation
 https://groups.google.com/forum/#!topic/storm-user/HOzYncAlm_A
 
-1. when use scala to call storm or other jvm. maybe we need type conversion.
+#### when use scala to call storm or other jvm. maybe we need type conversion.
+
+
+
+#### run word count, some error about class not found.
+http://www.cnblogs.com/foreach-break/p/dig_NoClassDefFound_Exception_inside_JVM.html
+
+

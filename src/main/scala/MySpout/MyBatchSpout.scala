@@ -42,6 +42,7 @@ class MyBatchSpout extends IBatchSpout {
   def getComponentConfiguration: java.util.Map[_, _] = {
     val conf: Config = new Config
     conf.setMaxTaskParallelism(1)
+    // conf.put(Config.TOPOLOGY_TICK_TUPLE_FREQ_SECS, new Integer(60))
     conf
   }
 

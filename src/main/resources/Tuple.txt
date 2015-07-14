@@ -1,0 +1,3 @@
+#### tuple
+it is unique via component id + stream id + message id.
+

@@ -26,6 +26,20 @@ you should remove storm-core from artifact
 you should remove redundant slf4j log implementation jar from artifact.
 that is to remove backlog jar.
 
+6. you can't run topology submit in IDE successfully.
+since storm need read the configuration from yaml file
+maybe other environment variables. so you can't connect to nimbus.
+you must put in in package and then submit via storm jar command.
 
+7. if you create named stream in spout or bolt. then must point out
+the stream name in its next stream bolt.
+"defaultOne" cannot be saved. so from here, we can see when storm create the
+   topology and validate it, the emit stream name and received stream name must
+   be checked.
+tb.setBolt("split", new TickBolt(), 1).shuffleGrouping("spout", "defaultOne")
 
+8. one bolt can receive multiple streams from different spout/bolt.
+so the stream model beyond the tree.
+
+9.
 
