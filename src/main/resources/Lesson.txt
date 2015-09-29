@@ -21,3 +21,7 @@ https://groups.google.com/forum/#!topic/storm-user/HOzYncAlm_A
 http://www.cnblogs.com/foreach-break/p/dig_NoClassDefFound_Exception_inside_JVM.html
 
 
+
+#### for some common bolt, there is implementation in storm already.
+for instance, the redis bolt and hbase bolt.
+

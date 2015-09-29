@@ -12,3 +12,9 @@ Aggregator general one
 
 projection   change field 's name
 
+
+
+
+2. trident provide exact once processing tuple in batch
+
+3. trident provide api like spark or functional programming method.

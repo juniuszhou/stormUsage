@@ -5,6 +5,12 @@ workers. In the old model, worker = process and task = thread. Storm
 worker = process, an executor = thread, and one executor runs many
 tasks from the same spout/bolt.
 
+One thread can run several spout/bolt. even the same one.
+so the schedule hierarchy becomes worker(process)  -> executor(thread) -> task(each spout/bolt.)
+so executor or single thread can run several the same task.
+but can't run different task.
+
+
 The reason for the change is that the old model complected the
 semantics of the topology with its physical execution. For example, if
 you had a bolt with 4 tasks doing a fields grouping on some stream, in

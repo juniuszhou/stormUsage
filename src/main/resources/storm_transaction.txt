@@ -20,3 +20,32 @@ the offset of each partition is stored in zookeeper.
 #### timeout of message from spout.
 we can set the time out for each message handled by the whole topology tree.
 
+
+#### for Transactional Topology. each tuple include transaction attempt as first field
+and transaction attempt has both transaction id and attempt id.
+
+
+
+
+
+
+
+#### storm 's implementation of transactional topology.
+1. batch processing. if we set transaction id for each tuple.
+it is very low efficient. so we set a global transaction id just
+for a batch of tuple.
+2. both partial update and global update.
+for partial update within batch, it can be done parallel.
+for global update transaction id must be sequential and in order.
+
+it is like the multi pipeline processor, instructors can be executed
+in parallel but for commit phase, order is kept.
+
+3. storm keep all necessary info about transaction topology in zookeeper.
+4. whole solution need the support from message solution to re-get exact
+batch of messages. kestrel can't support it but kafka can.
+
+
+
+
+
