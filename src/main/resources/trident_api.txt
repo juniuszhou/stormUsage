@@ -16,5 +16,6 @@ projection   change field 's name
 
 
 2. trident provide exact once processing tuple in batch
+the whole tuple tree process is a transaction.
 
 3. trident provide api like spark or functional programming method.

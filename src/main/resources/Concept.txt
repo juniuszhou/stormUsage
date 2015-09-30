@@ -1,10 +1,16 @@
 #### general
 storm designed by twitter then become apache open source.
 implemented by clojure language.
+its configuration file is yaml format.
 
 #### component
 Nimbus job tracker or master. Nimbus is Thrift service. can be called by different language.
 Nimbus daemon and supervisor daemon can restart nimbus and supervisor.
+Nimbus running as a thrift server to listen the job submitter.
+Nimbus pool zookeeper directory to know if supervisor joining or quiting.
+
+supervisor just communicate with zookeeper.and get task from zookeeper.
+supervisor can manage multiple workers.
 
 topologies is graph computing like job in spark
 worker supervisor daemon
@@ -14,11 +20,29 @@ spouts source of stream. both reliable and unreliable source. spout can emit mor
 bolts consumer of stream
 
 one executor is a thread.
-a task is one execution flow. one executor can run several tasks since 0.8 and
-the new model can decouple thread from task, so new model can scale up/out better.
+a task is one execution flow. one executor can run several tasks of same type(same spout or same bolt)
+since 0.8 and the new model can decouple thread from task, so new model can scale up/out better.
+executor just one thread so it can run all tasks in parallel.
+just run them one by one in serial way.
 
 there are many system thread running at worker, such as emit thread.
 system spout to send tick tuple.
+
+worker is a process running under the supervision of supervisor.
+worker send heartbeat to zookeeper.
+a worker include several threads.
+1. receive / send thread
+2. zk client for heartbeat
+3. timer
+4. system bolt for statistics.
+5. metrics bolt for executor level statistics.
+6. shared executor for thread pool
+
+worker can't run tasks from different topology
+
+slot is listening port of a supervisor.
+slot number is a hard limit for how many workers can run at a node.
+the configured number in program for workers is soft or wanted parallel number.
 
 #### Grouping
 how stream is partitioned among bolt's tasks.
@@ -76,3 +100,29 @@ worker is a working process can run if slot available.
 and worker can run several spout/bolt since it can run several threads.
 
 spout and bolt is single thread.
+
+
+#### the flow of topology submit.
+1. client send jar to nimbus
+2. nimbus create directory structure for topology.
+3. compute the tasks, how many spout bolt then generate assignment.
+4. then supervisor watch will trigger to read assignment.
+5. worker read/emit tuple and send heartbeat.
+
+
+
+#### reliability
+tuple tree
+there is acker bolt to track each tuple tree.
+each bolt send ack to acker bolt. then acker bolt record it.
+and do XOR, if it is zero means well done then send ack to spout.
+
+请注意，spout发出的消息后续可能会触发产生成千上万条消息，可以形象的理解为一棵消息树，
+其中spout发出的消息为树根，Storm会跟踪这棵消息树的处理情况，只有当这棵消息树中的所有消息都被处理了，
+Storm才会认为spout发出的这个消息已经被“完全处理”。如果这棵消息树中的任何一个消息处理失败了，
+或者整棵消息树在限定的时间内没有“完全处理”，那么spout发出的消息就会重发。
+考虑到尽可能减少对内存的消耗，Storm并不会跟踪消息树中的每个消息，而是采用了一些特殊的策略，
+它把消息树当作一个整体来跟踪，对消息树中所有消息的唯一id进行异或计算，通过是否为零来判定spout发出的消息是否被“完全处理”，
+这极大的节约了内存和简化了判定逻辑，后面会对这种机制进行详细介绍。
+
+
