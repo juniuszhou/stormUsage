@@ -25,3 +25,4 @@ http://www.cnblogs.com/foreach-break/p/dig_NoClassDefFound_Exception_inside_JVM.
 #### for some common bolt, there is implementation in storm already.
 for instance, the redis bolt and hbase bolt.
 
+#### in one topology, we can't set the same spout more than once.
